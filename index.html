@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQUERY EXERCISES</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            height: 1500px;
+        }
+
+        /* .scroll-top {
+            float: right;
+        } */
+
+        table tr td,
+        table tr th {
+            border: 1px solid black;
+            width: 30%;
+        }
+
+        /* Exercise 3 */
+        .green {
+            background-color: green;
+        }
+
+       
+        .orange {
+            background-color: orange;
+        }
+
+        /* Exercise 7 */
+        .display {
+            color: blue;
+            font-weight: bold;
+        }
+
+
+
+        /* Exercise 11 */
+        .jquery {
+            background-color: #B0E0E6;
+            width: 70px;
+            border: 1px solid red;
+        }
+
+        /* Exercise 12 */
+        .block {
+            position: absolute;
+            background-color: #B0E0E6;
+            left: 40px;
+            width: 80px;
+            height: 80px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Exercise 2 -->
+        <!-- Disable the form submit button if a checkbox is checked and vice versa. -->
+        <br>
+        <input type="checkbox" name="accept" class="accept" value="yes"> I accept<br>
+        <input type="submit" value="Submit" class="btn btn-primary submit-btn" disabled="disabled" name="submit">
+
+        <!-- Exercise 3 -->
+        <!-- Create a table with alternating row background colors. -->
+        <br><br>
+        <table>
+            <tr>
+                <th class="green">Student</th>
+                <th class="green">Grade</th>
+            </tr>
+            <tr>
+                <td>Mark</td>
+                <td>1.2</td>
+            </tr>
+            <tr>
+                <td class="green">James</td>
+                <td class="green">2.2</td>
+            </tr>
+            <tr>
+                <td>David</td>
+                <td>1.6</td>
+            </tr>
+            <tr>
+                <td class="green">John</td>
+                <td class="green">2.0</td>
+            </tr>
+        </table>
+
+        <!-- Exercise 9 -->
+        <!-- Create a button that will remove a class and then add a new class to an element. -->
+        <br>
+        <button class="btn btn-success alternate">Change Alternate Color</button>
+
+        <!-- Exercise 4 -->
+        <!-- Create an input field that will accept a maximum of 15 characters. It should not accept when the length is greater than the maximum. Show a text below the input box that shows how many characters are remaining. -->
+        <br><br>
+        <input type="text" name="text-box" id="inputBox" maxlength="15">
+        <p><span class="r-chars">15</span> character(s) remaining.</p>
+
+        <!-- Exercise 7 -->
+        <!-- Display the value of an input field every time a user inserts a character. -->
+        <br>
+        <div class="display"></div>
+
+        <!-- Exercise 5 -->
+        <!-- Create an input field that will add an option to a dropdown box. -->
+        <br>
+        <button class="btn btn-primary add-option">Add</button>
+        <select name="dropdown" class="dropdown"></select>
+
+        <!-- Exercise 6 -->
+        <!-- Create a button that will remove an option from the dropdown box of number 5. -->
+        <button class="btn btn-danger remove-option">Remove</button>
+
+        <!-- Exercise 8 -->
+        <!-- Create an input type button that will change its text value when click. Example from "Save" to "Update" and vice versa. -->
+        <br><br>
+        <input type="submit" value="Good Morning" class="btn btn-success change">
+
+        <!-- Exercise 10 -->
+        <!-- Create an input field that restricts a number only input. -->
+        <br><br>
+        <p>Input Amount:
+            <input type="text" class="numbers">
+        </p>
+
+        <!-- Exercise 11 -->
+        <!-- Animate a paragraph element with the following properties with a duration of 5 seconds: -->
+        <button class="btn btn-primary animate">Animate</button><br><br>
+        <p class="jquery">jQuery</p>
+
+        <!-- Exercise 12 -->
+        <!-- Create 4 buttons that will move a box to the left, to the right, upward or downward. -->
+        <div>
+            <div>
+                <button class="btn btn-warning up">Up</button>
+                <button class="btn btn-warning down">Down</button><br><br>
+                <button class="btn btn-warning left">Left</button>
+                <button class="btn btn-warning right">Right</button>
+            </div>
+            <div class="block"></div>
+        </div>
+    </div>
+
+    <!-- Exercise 1 -->
+    <!-- Create a button that will scroll from the bottom part of a webpage to top. -->
+    <button type="button" class="btn btn-success scroll-top float-left ml-4">Up</button>
+    <br>
+    <br>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            // Exercise Number 1
+            $('.scroll-top').on('click', function () {
+                $('html').animate({
+                    scrollTop: 0
+                }, 'slow');
+            })
+
+            // Exercise Number 2
+            $('.accept').on('click', function () {
+                if ($('.submit-btn').is(':disabled')) {
+                    $('.submit-btn').removeAttr('disabled');
+                } else {
+                    $('.submit-btn').attr('disabled', 'disabled');
+                }
+            })
+
+            // Exercise 3
+            // $('tr:even').addClass('alternate');
+            $('.alternate').on('click', function(){
+                $('.green').addClass('orange');
+            })
+
+            // Excercise 4
+            var maxlength = 15;
+
+            $('#inputBox').on('keyup', function () {
+                var textLength = maxlength - $(this).val().length;
+
+                $('.r-chars').text(textLength);
+            })
+
+            // Exercise Number 5
+            $('.add-option').on('click', function () {
+                var option = $('#inputBox').val();
+
+                $('.dropdown').append('<option value="' + option + '">' + option + '</option>')
+            })
+
+            // Exercise Number 6
+            $('.remove-option').on('click', function () {
+                var remove = $('.dropdown').val();
+
+                $('.dropdown option[value="' + remove + '"]').remove();
+            })
+
+            // Exercise 7
+            $("#inputBox").on('keyup', function () {
+                var displayText = $(this).val();
+
+                $('.display').text(displayText);
+            })
+
+            // Exercise 8
+            $(".change").on('click', function () {
+                if ($(".change").val() == "Good Morning") {
+                    $(".change").val("Good Evening");
+                } else {
+                    $(".change").val("Good Morning");
+                }
+            })
+
+            // Exercise 9
+            $('.recolor').on('click', function () {
+                $('tr:odd').removeClass('alternate').addClass('orange');
+            })
+
+            // Exercise 10
+            $('.numbers').keyup(function () {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            })
+
+            // Exercise 11
+            $('.animate').click(function () {
+                $(".jquery").animate({
+                    width: "70%",
+                    opacity: 0.4,
+                    marginLeft: "0.6in",
+                    fontSize: "3em",
+                    borderWidth: "10px"
+                }, 1500);
+            })
+
+            // Exercise 12
+            $('.right').click(function () {
+                $('.block').animate({
+                    left: '+=50px'
+                }, 'slow');
+            })
+
+            $('.left').click(function () {
+                $('.block').animate({
+                    left: '-=50px'
+                }, 'slow');
+            })
+
+            $('.up').click(function () {
+                $('.block').animate({
+                    top: '-=50px'
+                }, 'slow');
+            })
+
+            $('.down').click(function () {
+                $('.block').animate({
+                    top: '+=50px'
+                }, 'slow');
+            })
+
+        }) 
+    </script>
+</body>
+
+</html>
